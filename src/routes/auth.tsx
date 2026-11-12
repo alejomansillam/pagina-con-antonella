@@ -102,6 +102,25 @@ function AuthPage() {
 
   const handleGoogle = async () => {
     setLoading(true);
+
+    // El login de Google de Lovable solo funciona en dominios de Lovable.
+    // En cualquier otro hosting (Vercel) usamos Google directo con Supabase.
+    const onLovable = /(^|\.)lovable\.(app|dev)$/.test(window.location.hostname);
+    if (!onLovable) {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth`,
+          queryParams: { hd: FIRM_DOMAIN.slice(1), prompt: "select_account" },
+        },
+      });
+      if (error) {
+        setLoading(false);
+        toast.error("No pudimos iniciar sesión con Google. Intentá de nuevo.");
+      }
+      return;
+    }
+
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
