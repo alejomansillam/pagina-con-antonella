@@ -1,0 +1,12 @@
+CREATE TABLE public.piso_factors (abogado text NOT NULL, riesgo text NOT NULL, factor numeric NOT NULL, PRIMARY KEY (abogado, riesgo));
+CREATE TABLE public.piso_config (id integer PRIMARY KEY DEFAULT 1, coeficiente numeric NOT NULL);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.piso_factors TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.piso_config TO authenticated;
+GRANT ALL ON public.piso_factors TO service_role;
+GRANT ALL ON public.piso_config TO service_role;
+ALTER TABLE public.piso_factors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.piso_config ENABLE ROW LEVEL SECURITY;
+CREATE POLICY piso_factors_read ON public.piso_factors FOR SELECT TO authenticated USING (public.is_firm_member());
+CREATE POLICY piso_factors_write ON public.piso_factors FOR ALL TO authenticated USING (public.can_edit(auth.uid())) WITH CHECK (public.can_edit(auth.uid()));
+CREATE POLICY piso_config_read ON public.piso_config FOR SELECT TO authenticated USING (public.is_firm_member());
+CREATE POLICY piso_config_write ON public.piso_config FOR ALL TO authenticated USING (public.can_edit(auth.uid())) WITH CHECK (public.can_edit(auth.uid()));

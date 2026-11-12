@@ -1,0 +1,10 @@
+DROP POLICY IF EXISTS gp_read ON public.gallery_photos;
+CREATE POLICY gp_read ON public.gallery_photos FOR SELECT TO authenticated USING (public.is_firm_member());
+DROP POLICY IF EXISTS gp_insert ON public.gallery_photos;
+CREATE POLICY gp_insert ON public.gallery_photos FOR INSERT TO authenticated WITH CHECK (author_id = auth.uid() AND public.is_firm_member());
+DROP POLICY IF EXISTS gallery_read ON storage.objects;
+CREATE POLICY gallery_read ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'gallery' AND public.is_firm_member());
+DROP POLICY IF EXISTS gallery_insert ON storage.objects;
+CREATE POLICY gallery_insert ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'gallery' AND public.is_firm_member() AND owner = auth.uid());
+DROP POLICY IF EXISTS gallery_delete ON storage.objects;
+CREATE POLICY gallery_delete ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'gallery' AND (owner = auth.uid() OR public.can_edit(auth.uid())));

@@ -1,0 +1,195 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790256683751,
+      "tag": "0000_staff_directory_and_profile_contact_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790603532157,
+      "tag": "0001_roles_padrones_avisos",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790605106256,
+      "tag": "0002_community_roles_invites",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790605317094,
+      "tag": "0003_restrict_signup_to_firm_domain",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790606261483,
+      "tag": "0004_chattigo_responses_teams",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790608104297,
+      "tag": "0005_restrict_reads_to_firm_members",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790609476732,
+      "tag": "0006_team_goals_bank_accounts",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790610193061,
+      "tag": "0007_articles_min_role_gallery_photos",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790610217710,
+      "tag": "0008_gallery_storage_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790611990000,
+      "tag": "0009_payment_plans",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790613148430,
+      "tag": "0010_management_dashboard",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790616647740,
+      "tag": "0011_editable_sections_official_files",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1790617657841,
+      "tag": "0012_seed_libre_deuda_html_official_file",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1790618488341,
+      "tag": "0013_vacations",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1790619773013,
+      "tag": "0014_vacations_team",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1790682343321,
+      "tag": "0015_gestion_cuentas",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1790768840666,
+      "tag": "0016_announcements_social",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1790949346759,
+      "tag": "0017_piso_deuda",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1791202561139,
+      "tag": "0018_calendar_events",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1791293690115,
+      "tag": "0019_piso_factors_update",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1791475559215,
+      "tag": "0020_calendar_events_extend",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1792242942791,
+      "tag": "0021_internal_team_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1792413013210,
+      "tag": "0022_harden_gallery",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1792496269764,
+      "tag": "0023_internal_chat_extras",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1793459925140,
+      "tag": "0024_manual_protocolo_mora_tardia",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793812998107,
+      "tag": "0025_assistant_threads",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1794066186787,
+      "tag": "0026_articles_editable",
+      "breakpoints": true
+    }
+  ]
+}
