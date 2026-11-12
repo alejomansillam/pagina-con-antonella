@@ -1,19 +1,27 @@
 import { Link } from "@tanstack/react-router";
 
-import logoAsset from "@/assets/mansilla-garzon-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
-export const LOGO_URL = logoAsset.url;
+// Logo oficial del estudio (mismo archivo que la web mansillagarzonyasociados.com.ar).
+// Se sirve desde /public para que funcione fuera de Lovable (Vercel).
+export const LOGO_URL = "/brand/logo-mg.png";
+export const LOGO_WHITE_URL = "/brand/logo-mg-blanco.png";
 export const PORTAL_NAME = "Portal del Estudio";
 export const FIRM_NAME = "Mansilla Garzón & Asoc.";
 export const PORTAL_TITLE = `${PORTAL_NAME} · ${FIRM_NAME}`;
 
-export function BrandMark({ className }: { className?: string }) {
+export function BrandMark({
+  className,
+  tone = "default",
+}: {
+  className?: string;
+  tone?: "default" | "inverted";
+}) {
   return (
     <img
-      src={LOGO_URL}
-      alt="Mansilla Garzón & asociados"
-      className={cn("h-10 w-auto rounded bg-card object-contain p-1", className)}
+      src={tone === "inverted" ? LOGO_WHITE_URL : LOGO_URL}
+      alt="Mansilla Garzón & Asociados"
+      className={cn("h-10 w-auto object-contain", className)}
     />
   );
 }
@@ -29,7 +37,7 @@ export function BrandLock({
 }) {
   return (
     <Link to={to} className={cn("flex items-center gap-3", className)}>
-      <BrandMark />
+      <BrandMark tone={tone} />
       <span className="leading-tight">
         <span
           className={cn(
