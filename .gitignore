@@ -33,3 +33,7 @@ dist-ssr
 
 # Variables de entorno
 .env
+
+# Esquema completo con datos internos (teléfonos, CBU): no subir a un repo público
+supabase/full_schema.sql
+supabase/data_export*
