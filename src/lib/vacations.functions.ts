@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const FILE_ID = "14-YWkYgvApxq3Xd7g6sEYEYfrkKwrwpg5zwhXQJPY0Y"; // VACACIONES 2027
-const GATEWAY = "https://connector-gateway.lovable.dev/google_drive/drive/v3";
+// Planilla "VACACIONES 2027" en Google Drive. Debe estar compartida como
+// "Cualquier persona con el enlace puede ver" para poder leerla como CSV.
+const SHEET_ID = process.env["VACATIONS_SHEET_ID"] || "14-YWkYgvApxq3Xd7g6sEYEYfrkKwrwpg5zwhXQJPY0Y";
+const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
 function parseCsv(text: string): string[][] {
   const rows: string[][] = [];
@@ -39,15 +41,12 @@ export const syncVacationsFromDrive = createServerFn({ method: "POST" })
   .handler(async ({ context }) => {
     const { data: ok } = await context.supabase.rpc("can_edit", { _user_id: context.userId });
     if (!ok) throw new Error("Solo Admin o Seniors pueden sincronizar.");
-    const lov = process.env["LOVABLE_API_KEY"];
-    const key = process.env["GOOGLE_DRIVE_API_KEY"];
-    if (!lov || !key) throw new Error("Falta la conexión con Google Drive.");
-
-    const res = await fetch(`${GATEWAY}/files/${FILE_ID}/export?mimeType=text/csv`, {
-      headers: { Authorization: `Bearer ${lov}`, "X-Connection-Api-Key": key },
-    });
-    if (!res.ok) throw new Error(`Drive respondió ${res.status}: ${await res.text()}`);
-    const rows = parseCsv(await res.text()).slice(1);
+    const res = await fetch(CSV_URL, { redirect: "follow" });
+    const text = res.ok ? await res.text() : "";
+    if (!res.ok || text.trimStart().startsWith("<")) {
+      throw new Error("No se pudo leer la planilla de vacaciones. Revisá que esté compartida con el enlace.");
+    }
+    const rows = parseCsv(text).slice(1);
 
     const out: Array<{ person_name: string; team: string | null; days: number | null; start_date: string; end_date: string; status: string; note: string | null; source: string }> = [];
     let pending = 0;

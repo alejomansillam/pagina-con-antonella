@@ -1,1 +1,0 @@
-ALTER TABLE public.vacations ADD COLUMN team text, ADD COLUMN days integer, ADD COLUMN source text NOT NULL DEFAULT 'manual';

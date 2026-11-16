@@ -1,5 +1,6 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import base from "@/assets/libre-deuda-base.pdf.asset.json";
+// Modelo oficial (sin datos de deudores) servido desde /public
+const BASE_PDF_URL = "/files/libre-deuda-base.pdf";
 
 export type LibreDeudaData = { nombre: string; dni: string; fecha: string; pago: string };
 
@@ -15,7 +16,7 @@ export function validateLibreDeuda(data: LibreDeudaData) {
 
 export async function generateLibreDeuda(data: LibreDeudaData) {
   validateLibreDeuda(data);
-  const response = await fetch(base.url);
+  const response = await fetch(BASE_PDF_URL);
   if (!response.ok) throw new Error("No se pudo cargar el modelo oficial.");
   const doc = await PDFDocument.load(await response.arrayBuffer());
   const page = doc.getPages()[0];

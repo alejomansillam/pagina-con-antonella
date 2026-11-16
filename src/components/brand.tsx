@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 
 // Logo oficial del estudio (mismo archivo que la web mansillagarzonyasociados.com.ar).
-// Se sirve desde /public para que funcione fuera de Lovable (Vercel).
+// Se sirve desde /public.
 export const LOGO_URL = "/brand/logo-mg.png";
 export const LOGO_WHITE_URL = "/brand/logo-mg-blanco.png";
 export const PORTAL_NAME = "Portal del Estudio";

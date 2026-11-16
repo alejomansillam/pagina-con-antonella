@@ -1,2 +1,0 @@
-GRANT UPDATE ON public.articles TO authenticated;
-CREATE POLICY articles_update_editors ON public.articles FOR UPDATE TO authenticated USING (public.can_edit(auth.uid())) WITH CHECK (public.can_edit(auth.uid()));

@@ -1,29 +1,25 @@
-# Welcome to your Lovable project
+# Portal del Estudio · Mansilla Garzón & Asoc.
 
-This project was built with [Lovable](https://lovable.dev).
+Portal interno del equipo: padrones, plantillas, campañas, equipos, calendario, chat interno, constancias y capacitación.
 
-## Build with Lovable
+- **Sitio:** https://pagina-con-antonella.vercel.app (Vercel publica solo cada cambio en `main`).
+- **Base de datos, login y archivos:** Supabase, proyecto `portal-estudio`.
+- **Estructura de la base:** `supabase/schema.sql`.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Variables de entorno (Vercel → Settings → Environment Variables)
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+| Variable | Para qué |
+| --- | --- |
+| `VITE_SUPABASE_URL`, `SUPABASE_URL` | URL del proyecto de Supabase |
+| `VITE_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_PUBLISHABLE_KEY` | Clave pública de Supabase |
+| `ANTHROPIC_API_KEY` | Asistente con IA (opcional) |
+| `VACATIONS_SHEET_ID` | Planilla de vacaciones en Drive (opcional) |
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Desarrollo local
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
 
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Requiere un archivo `.env` con las variables de arriba.

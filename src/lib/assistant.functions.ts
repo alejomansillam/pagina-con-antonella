@@ -2,19 +2,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const MODEL = "openai/gpt-6-astra" as const;
+// Asistente del portal con Claude (Anthropic). Requiere ANTHROPIC_API_KEY en Vercel.
+const MODEL = "claude-haiku-5-5";
 const MAX_ARTICLE_CHARS = 6000;
-
-function extractText(res: unknown): string {
-  const r = res as { output_text?: string; output?: { type?: string; content?: { type?: string; text?: string }[] }[] };
-  if (typeof r.output_text === "string" && r.output_text) return r.output_text;
-  return (r.output ?? [])
-    .filter((o) => o.type === "message")
-    .flatMap((o) => o.content ?? [])
-    .filter((c) => c.type === "output_text" && c.text)
-    .map((c) => c.text)
-    .join("\n");
-}
 
 export const askAssistant = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -47,17 +37,9 @@ Respondé SOLO con la información de los manuales y documentación del portal q
 DOCUMENTACIÓN DEL PORTAL:
 ${docs}`;
 
-    let answer: string;
-    try {
-      const res = await generateWithModel(instructions, (history ?? []) as { role: "user" | "assistant"; content: string }[]);
-      answer = extractText(res).trim() || "No pude generar una respuesta. Probá reformular la pregunta.";
-    } catch (e) {
-      const { GatewayError, PaymentRequiredError, RateLimitError } = await import("@lovable.dev/ai-gateway");
-      if (e instanceof PaymentRequiredError) throw new Error("Se agotaron los créditos de IA del espacio de trabajo.");
-      if (e instanceof RateLimitError) throw new Error("Hay muchas consultas en este momento. Probá de nuevo en un rato.");
-      if (e instanceof GatewayError) { console.error("assistant gateway error", e.code, e.ids); throw new Error("El asistente no está disponible ahora. Probá de nuevo."); }
-      throw e;
-    }
+    const answer =
+      (await askClaude(instructions, (history ?? []) as Message[])).trim() ||
+      "No pude generar una respuesta. Probá reformular la pregunta.";
 
     const { error: aErr } = await sb.from("assistant_messages")
       .insert({ thread_id: data.threadId, role: "assistant", content: answer });
@@ -70,11 +52,26 @@ ${docs}`;
     return { answer };
   });
 
-async function generateWithModel(instructions: string, history: { role: "user" | "assistant"; content: string }[]) {
-  const { generateResponse } = await import("@lovable.dev/ai-gateway");
-  return generateResponse({
-    model: MODEL,
-    instructions,
-    input: history.map((m) => ({ role: m.role, content: m.content })),
+type Message = { role: "user" | "assistant"; content: string };
+
+async function askClaude(system: string, messages: Message[]): Promise<string> {
+  const apiKey = process.env["ANTHROPIC_API_KEY"];
+  if (!apiKey) throw new Error("El asistente todavía no está configurado (falta ANTHROPIC_API_KEY).");
+
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ model: MODEL, max_tokens: 1024, system, messages }),
   });
+  if (res.status === 429) throw new Error("Hay muchas consultas en este momento. Probá de nuevo en un rato.");
+  if (!res.ok) {
+    console.error("assistant error", res.status, await res.text());
+    throw new Error("El asistente no está disponible ahora. Probá de nuevo.");
+  }
+  const body = (await res.json()) as { content?: { type: string; text?: string }[] };
+  return (body.content ?? []).filter((c) => c.type === "text").map((c) => c.text).join("\n");
 }
