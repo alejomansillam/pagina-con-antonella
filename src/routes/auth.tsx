@@ -121,22 +121,24 @@ function AuthPage() {
           src="/brand/ingreso-estudio.jpg"
           alt=""
           aria-hidden
-          className="absolute inset-0 size-full object-cover object-[30%_40%]"
+          className="ken-burns absolute inset-0 size-full object-cover object-[30%_40%]"
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-[#1f2638] via-[#1f2638]/70 to-[#1f2638]/40"
+          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/35"
         />
         <div className="relative">
           <BrandLock tone="inverted" />
         </div>
         <div className="relative max-w-md">
-          <h1 className="font-display text-4xl leading-tight">
-            Todo lo que necesitas saber, en el orden en que lo necesitas.
+          <p className="eyebrow">Portal del estudio</p>
+          <span className="gold-rule mt-3" aria-hidden />
+          <h1 className="mt-5 font-display text-5xl leading-[1.05]">
+            Todo lo que necesitás para el día a día, en un solo lugar.
           </h1>
-          <p className="mt-4 text-ink-foreground/70">
-            Bienvenida, Cultura, Procesos Operativos, Herramientas Clave y FAQs: cinco secciones con
-            objetivos claros y una checklist de lectura que sigue tu progreso.
+          <p className="mt-5 text-ink-foreground/70">
+            Padrones, plantillas, constancias, equipos, agenda, comunicación y capacitación del
+            estudio.
           </p>
         </div>
         <p className="relative text-sm text-ink-foreground/60">
@@ -179,10 +181,10 @@ function AuthPage() {
                 type="button"
                 onClick={handleGoogle}
                 disabled={loading}
-                className="mt-6 flex w-full items-center gap-3 rounded-md border border-[#3b4561]/25 bg-card px-4 py-3 text-left shadow-sm transition-colors hover:border-[#3b4561]/60 hover:bg-[#3b4561]/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3b4561]/40 disabled:opacity-60"
+                className="mt-6 flex w-full items-center gap-3 rounded-md border border-primary/25 bg-card px-4 py-3 text-left shadow-sm transition-colors hover:border-primary/60 hover:bg-primary/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-60"
               >
                 {loading ? (
-                  <Loader2 className="size-5 shrink-0 animate-spin text-[#3b4561]" aria-hidden />
+                  <Loader2 className="size-5 shrink-0 animate-spin text-primary" aria-hidden />
                 ) : (
                   <svg viewBox="0 0 48 48" className="size-5 shrink-0" aria-hidden>
                     <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z" />
@@ -192,7 +194,7 @@ function AuthPage() {
                   </svg>
                 )}
                 <span className="leading-tight">
-                  <span className="block text-sm font-semibold text-[#3b4561]">
+                  <span className="block text-sm font-semibold text-primary">
                     Continuar con Google
                   </span>
                   <span className="block text-xs text-muted-foreground">

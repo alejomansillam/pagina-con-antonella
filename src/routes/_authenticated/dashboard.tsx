@@ -131,21 +131,26 @@ function Dashboard() {
           />
         </Link>
       )}
-      <section className="rise-in relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/70 p-6 text-primary-foreground shadow-lg md:p-8">
-        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-primary-foreground/10 blur-2xl" />
-        <div aria-hidden className="pointer-events-none absolute -bottom-20 right-24 size-48 rounded-full bg-primary-foreground/10 blur-2xl" />
-        <p className="relative text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/80">
+      <section className="ink-panel relative p-7 shadow-lg md:p-10">
+        <img
+          src="/brand/logo-mg-blanco.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute -right-6 top-1/2 hidden h-44 -translate-y-1/2 opacity-[0.06] md:block"
+        />
+        <p className="eyebrow relative">
           {new Date().toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" })}
         </p>
-        <h1 className="relative mt-1 font-display text-3xl leading-tight md:text-[2.4rem]">
+        <span className="gold-rule relative mt-3" aria-hidden />
+        <h1 className="relative mt-4 font-display text-4xl leading-tight md:text-5xl">
           {greeting()}
           {firstName ? `, ${firstName}` : ""} 👋
         </h1>
-        <p className="relative mt-2 max-w-2xl text-sm text-primary-foreground/85 md:text-base">
+        <p className="relative mt-3 max-w-2xl text-sm text-ink-foreground/75 md:text-base">
           ¡Qué bueno tenerte hoy en el equipo! Mirá las novedades, saludá a quien cumple años y arrancá con todo. ☀️
         </p>
         {required.length > 0 && (
-          <p className="relative mt-3 inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-medium">
+          <p className="relative mt-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium text-gold-soft">
             {complete ? "🎉 Completaste todas tus lecturas obligatorias" : `📚 Llevás ${done} de ${required.length} lecturas obligatorias`}
           </p>
         )}
@@ -154,7 +159,7 @@ function Dashboard() {
             <Link
               key={q.to}
               to={q.to}
-              className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-4 py-2 text-sm font-medium transition-all hover:-translate-y-0.5 hover:bg-primary-foreground/20"
+              className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/[0.06] px-4 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/60 hover:bg-gold/15 hover:text-gold-soft"
             >
               <q.icon className="size-4" aria-hidden />
               {q.label}

@@ -5,16 +5,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all duration-150 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-b from-primary-glow to-primary text-primary-foreground shadow-sm ring-1 ring-inset ring-primary-foreground/15 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/30 active:translate-y-0",
+        default: "bg-primary text-primary-foreground shadow-sm ring-1 ring-inset ring-gold/0 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25 hover:ring-gold/60 active:translate-y-0",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:-translate-y-0.5 hover:shadow-md hover:bg-destructive/90 active:translate-y-0",
         outline:
-          "border border-input bg-background shadow-sm hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent hover:text-accent-foreground hover:shadow-md active:translate-y-0",
+          "border border-input bg-card shadow-sm hover:-translate-y-0.5 hover:border-gold/70 hover:bg-secondary hover:shadow-md active:translate-y-0",
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:-translate-y-0.5 hover:bg-secondary/80 hover:shadow-md active:translate-y-0",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-secondary hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

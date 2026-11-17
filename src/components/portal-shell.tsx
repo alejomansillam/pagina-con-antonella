@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   LayoutDashboard,
@@ -99,10 +99,10 @@ const MENUS = [
 const WEB = "https://www.mansillayasoc.com.ar/";
 
 const linkClass =
-  "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-ink-foreground/20 px-3.5 py-1.5 text-sm font-medium text-ink-foreground/75 transition-all duration-200 hover:border-ink-foreground/40 hover:bg-ink-foreground/10 hover:text-ink-foreground max-sm:w-[calc(50%-0.375rem)] max-sm:justify-center [&.active]:border-background [&.active]:bg-background [&.active]:font-semibold [&.active]:text-foreground [&.active]:shadow-md";
+  "relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium text-ink-foreground/70 transition-all duration-300 hover:bg-ink-foreground/[0.07] hover:text-ink-foreground [&.active]:bg-gold/15 [&.active]:text-gold-soft [&.active]:ring-1 [&.active]:ring-gold/40";
 
 const drawerLinkClass =
-  "flex items-start gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary [&.active]:bg-primary [&.active]:text-primary-foreground";
+  "flex items-start gap-3 rounded-lg border-l-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary [&.active]:border-gold [&.active]:bg-primary [&.active]:text-primary-foreground";
 
 export function PortalShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
@@ -135,14 +135,15 @@ export function PortalShell({ children }: { children: ReactNode }) {
   const firstName = fullName.split(" ")[0];
   const isAdmin = roles.includes("admin");
   const roleLabel = isAdmin ? "Admin" : roles.includes("senior") ? "Senior" : "Gestor";
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
 
   return (
     <div className="min-h-screen bg-background">
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--color-primary)_14%,transparent),transparent)] print:hidden"
+        className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--color-gold)_16%,transparent),transparent)] print:hidden"
       />
-      <header className="sticky top-0 z-40 border-b-2 border-border bg-card shadow-md print:hidden">
+      <header className="glass-bar sticky top-0 z-40 border-b border-border/70 print:hidden">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-3.5 md:gap-5">
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger
@@ -235,7 +236,7 @@ export function PortalShell({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        <div className="hidden bg-ink text-ink-foreground shadow-inner lg:block">
+        <div className="hidden border-t border-gold/25 bg-ink text-ink-foreground lg:block">
           <div className="mx-auto max-w-6xl px-4">
             <nav className="flex items-center gap-1.5 py-2.5">
               <Link to="/dashboard" className={linkClass} activeProps={{ className: "active" }}>
@@ -287,11 +288,13 @@ export function PortalShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-20 pt-10">{children}</main>
-      <footer className="border-t border-border bg-card">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm text-muted-foreground">
-          <span>© {new Date().getFullYear()} Mansilla Garzón & Asoc.</span>
-          <a href={WEB} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-foreground hover:underline">
+      <main key={pathname} className="page-enter mx-auto max-w-6xl px-4 pb-20 pt-10">{children}</main>
+      <footer className="border-t border-gold/25 bg-ink text-ink-foreground/70 print:hidden">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-7 text-sm">
+          <span>
+            <span className="eyebrow mr-3">Portal del estudio</span>© {new Date().getFullYear()} Mansilla Garzón & Asoc.
+          </span>
+          <a href={WEB} target="_blank" rel="noopener noreferrer" className="link-gold inline-flex items-center gap-1.5 font-medium text-ink-foreground">
             <Globe className="size-4" aria-hidden />
             www.mansillayasoc.com.ar
           </a>
