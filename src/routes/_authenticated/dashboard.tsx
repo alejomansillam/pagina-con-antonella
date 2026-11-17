@@ -136,7 +136,7 @@ function Dashboard() {
           src="/brand/logo-mg-blanco.png"
           alt=""
           aria-hidden
-          className="pointer-events-none absolute -right-6 top-1/2 hidden h-44 -translate-y-1/2 opacity-[0.06] md:block"
+          className="pointer-events-none absolute -right-6 top-1/2 hidden h-44 -translate-y-1/2 opacity-[0.035] mix-blend-screen md:block"
         />
         <p className="eyebrow relative">
           {new Date().toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" })}
